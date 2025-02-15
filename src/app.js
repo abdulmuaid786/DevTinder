@@ -5,9 +5,17 @@ app.listen(7777,()=>{
  console.log("Server is successfully listening on 7777")
 });
 
-app.use((req, res)=>{
- res.send("Hello World!!")    
-});  
+app.get("/user",(req,res)=>{
+    res.send({firstName:"Abdul", lastName: "Muaid"})
+});
+
+app.post("/user",(req,res)=>{
+    res.send("Data has Successfully Stored in Database!!!")
+});
+
+app.delete("/user",(req,res)=>{
+    res.send("Data has been Deleted From Database!!")
+});
 
 app.use("/test", (req, res)=>{
  res.send("Hello World!!, From Test")
@@ -24,4 +32,7 @@ app.use("/index", (req, res)=>{
 });  res.send("Hello World!!, From Index")        
 });
         
+app.use((req, res)=>{
+    res.send("Hello World!!")    
+   });  
       
