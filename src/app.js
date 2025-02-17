@@ -1,21 +1,22 @@
 const express = require('express');
+const { adminAuth, userAuth } = require('./middlewares/auth');
 const app = express();
-
 app.listen(7777,()=>{
  console.log("Server is successfully listening on 7777")
 });
 
-app.get("/user",(req,res,next)=>{
-   console.log("From the First Request Handler");
-    //res.send({firstName:"Abdul", lastName: "Muaid"})
-    next();
-}),
-app.get("/user",(req,res,next)=>{
-    console.log("From 2nd Request Handler");
-     //res.send({firstName:"Abdul", lastName: "Muaid", Response:"2nd"})
-     next();
- }),
-app.get("/user",(req,res,next)=>{
-    console.log("From the 3rd Request Handler");
-     res.send({firstName:"Abdul", lastName: "Muaid", Response:"3rd"})     
+app.use("/admin", adminAuth)
+
+app.get("/user",  userAuth, (req,res,next)=>{
+    res.send("user data sent");
+   
+   });
+
+app.get("/admin/getAlluser",(req,res,next)=>{
+ res.send({Message:"All data sent ", firstName:"Abdul", lastName: "Muaid"});
+
+});
+
+app.get("/admin/deleteAlluser",(req,res,next)=>{
+     res.send("Deleted all data");
  });
